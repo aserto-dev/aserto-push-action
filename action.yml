@@ -1,0 +1,38 @@
+name: "Aserto Push"
+description: "Publish policy to policy registry"
+author: "Aserto.com"
+branding:
+  icon: box
+  color: orange
+inputs:
+  bundle:
+    description: "path to bundle file"
+    required: true
+    default: build/bundle.tar.gz
+  release_id:
+    description: "GitHub release ID"
+    required: true
+  policy_registry:
+    description: "policy registry service endpoint"
+    required: true
+    default: "https://bundler.prod.aserto.com/v1"
+  push_key:
+    description: "JSON object containing the registry API key, tenant and policy IDs"
+    required: false
+  tenant_id:
+    description: "Aserto tenant ID"
+    required: false
+  policy_id:
+    description: "Aserto policy ID"
+    required: false
+  policy_registry_key:
+    description: "API key for authenticating with the policy registry"
+    required: false
+  verbose:
+    description: "verbose logging [ true | false ]"
+    required: true
+    default: "false"
+runs:
+  using: docker
+  image: 'docker://ghcr.io/aserto-dev/aserto-one:action-v2'
+  entrypoint: /app/push.sh
